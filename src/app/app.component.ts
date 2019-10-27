@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,6 +11,8 @@ export class AppComponent implements OnInit {
   title = 'my-observable';
   observable = Observable.create((observer) => {
     observer.next('start processing . . .');
+
+    observer.error('its error processing . . .');
 
     setTimeout(() => {
       observer.next('still processing...');
