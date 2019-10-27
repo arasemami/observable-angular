@@ -17,15 +17,14 @@ export class AppComponent implements OnInit {
 
   observable = Observable.create((observer) => {
     observer.next(
-      this.appService.getData()
-        .subscribe(data => this.myData = data)
+      console.log(this.myData)
     );
 
     // observer.error('its error processing . . .');
 
-    setTimeout(() => {
-      observer.next(console.log(this.myData));
-    }, 2000);
+    // setTimeout(() => {
+    //   observer.next(console.log(this.myData));
+    // }, 2000);
 
     // setTimeout(() => {
     //   observer.complete();
@@ -40,6 +39,9 @@ export class AppComponent implements OnInit {
       () => console.log('process is finish!')
     );
     console.log(this.myData);
+
+    this.appService.getData()
+    .subscribe(data => this.myData = data)
 
 
 
