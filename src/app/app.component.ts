@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppService } from './app.service';
 
 
 @Component({
@@ -9,18 +10,26 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'my-observable';
-  observable = Observable.create((observer) => {
-    observer.next('start processing . . .');
+  test;
+  public myData = [];
 
-    observer.error('its error processing . . .');
+  constructor(private appService: AppService) { }
+
+  observable = Observable.create((observer) => {
+    observer.next(
+      this.appService.getData()
+        .subscribe(data => this.myData = data)
+    );
+
+    // observer.error('its error processing . . .');
 
     setTimeout(() => {
-      observer.next('still processing...');
+      observer.next(console.log(this.myData));
     }, 2000);
 
-    setTimeout(() => {
-      observer.complete();
-    }, 5000);
+    // setTimeout(() => {
+    //   observer.complete();
+    // }, 5000);
 
   });
 
@@ -29,7 +38,10 @@ export class AppComponent implements OnInit {
       data => console.log(data),
       error => console.log(error),
       () => console.log('process is finish!')
-
     );
+    console.log(this.myData);
+
+
+
   }
 }
